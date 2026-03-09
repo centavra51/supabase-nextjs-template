@@ -10,6 +10,7 @@ import {
     ChevronDown,
     LogOut,
     Key, Files, LucideListTodo,
+    SearchCheck,
 } from 'lucide-react';
 import { useGlobal } from "@/lib/context/GlobalContext";
 import { createSPASassClient } from "@/lib/supabase/client";
@@ -46,6 +47,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     const navigation = [
         { name: 'Homepage', href: '/app', icon: Home },
+        { name: 'Listing Audit', href: '/app/audit', icon: SearchCheck },
         { name: 'Example Storage', href: '/app/storage', icon: Files },
         { name: 'Example Table', href: '/app/table', icon: LucideListTodo },
         { name: 'User Settings', href: '/app/user-settings', icon: User },

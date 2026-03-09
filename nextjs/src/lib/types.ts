@@ -39,6 +39,264 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_generations: {
+        Row: {
+          competitor_id: string | null
+          created_at: string
+          id: string
+          input_json: Json
+          kind: Database["public"]["Enums"]["generation_kind"]
+          listing_audit_id: string | null
+          model_name: string | null
+          output_json: Json
+          owner: string
+          project_id: string | null
+          prompt_version: string | null
+          tokens_input: number | null
+          tokens_output: number | null
+        }
+        Insert: {
+          competitor_id?: string | null
+          created_at?: string
+          id?: string
+          input_json?: Json
+          kind: Database["public"]["Enums"]["generation_kind"]
+          listing_audit_id?: string | null
+          model_name?: string | null
+          output_json?: Json
+          owner: string
+          project_id?: string | null
+          prompt_version?: string | null
+          tokens_input?: number | null
+          tokens_output?: number | null
+        }
+        Update: {
+          competitor_id?: string | null
+          created_at?: string
+          id?: string
+          input_json?: Json
+          kind?: Database["public"]["Enums"]["generation_kind"]
+          listing_audit_id?: string | null
+          model_name?: string | null
+          output_json?: Json
+          owner?: string
+          project_id?: string | null
+          prompt_version?: string | null
+          tokens_input?: number | null
+          tokens_output?: number | null
+        }
+        Relationships: []
+      }
+      competitors: {
+        Row: {
+          asin: string
+          comparison_json: Json
+          created_at: string
+          currency_code: string | null
+          description: string | null
+          id: string
+          listing_audit_id: string | null
+          marketplace: string
+          owner: string
+          price_amount: number | null
+          project_id: string
+          rating: number | null
+          raw_json: Json
+          review_count: number | null
+          title: string | null
+          updated_at: string
+          bullet_points: Json
+        }
+        Insert: {
+          asin: string
+          comparison_json?: Json
+          created_at?: string
+          currency_code?: string | null
+          description?: string | null
+          id?: string
+          listing_audit_id?: string | null
+          marketplace?: string
+          owner: string
+          price_amount?: number | null
+          project_id: string
+          rating?: number | null
+          raw_json?: Json
+          review_count?: number | null
+          title?: string | null
+          updated_at?: string
+          bullet_points?: Json
+        }
+        Update: {
+          asin?: string
+          comparison_json?: Json
+          created_at?: string
+          currency_code?: string | null
+          description?: string | null
+          id?: string
+          listing_audit_id?: string | null
+          marketplace?: string
+          owner?: string
+          price_amount?: number | null
+          project_id?: string
+          rating?: number | null
+          raw_json?: Json
+          review_count?: number | null
+          title?: string | null
+          updated_at?: string
+          bullet_points?: Json
+        }
+        Relationships: []
+      }
+      listing_audits: {
+        Row: {
+          analyzed_at: string | null
+          asin: string | null
+          backend_keywords: string | null
+          brand_name: string | null
+          bullet_points: Json
+          category_name: string | null
+          compliance_score: number | null
+          conversion_score: number | null
+          created_at: string
+          currency_code: string | null
+          id: string
+          image_count: number | null
+          input_json: Json
+          issues_json: Json
+          listing_url: string | null
+          locale: string
+          marketplace: string
+          normalized_json: Json
+          overall_score: number | null
+          owner: string
+          price_amount: number | null
+          product_description: string | null
+          product_title: string | null
+          project_id: string | null
+          rating: number | null
+          readability_score: number | null
+          recommendations_json: Json
+          result_json: Json
+          review_count: number | null
+          score_json: Json
+          seo_score: number | null
+          status: Database["public"]["Enums"]["audit_status"]
+          updated_at: string
+        }
+        Insert: {
+          analyzed_at?: string | null
+          asin?: string | null
+          backend_keywords?: string | null
+          brand_name?: string | null
+          bullet_points?: Json
+          category_name?: string | null
+          compliance_score?: number | null
+          conversion_score?: number | null
+          created_at?: string
+          currency_code?: string | null
+          id?: string
+          image_count?: number | null
+          input_json?: Json
+          issues_json?: Json
+          listing_url?: string | null
+          locale?: string
+          marketplace?: string
+          normalized_json?: Json
+          overall_score?: number | null
+          owner: string
+          price_amount?: number | null
+          product_description?: string | null
+          product_title?: string | null
+          project_id?: string | null
+          rating?: number | null
+          readability_score?: number | null
+          recommendations_json?: Json
+          result_json?: Json
+          review_count?: number | null
+          score_json?: Json
+          seo_score?: number | null
+          status?: Database["public"]["Enums"]["audit_status"]
+          updated_at?: string
+        }
+        Update: {
+          analyzed_at?: string | null
+          asin?: string | null
+          backend_keywords?: string | null
+          brand_name?: string | null
+          bullet_points?: Json
+          category_name?: string | null
+          compliance_score?: number | null
+          conversion_score?: number | null
+          created_at?: string
+          currency_code?: string | null
+          id?: string
+          image_count?: number | null
+          input_json?: Json
+          issues_json?: Json
+          listing_url?: string | null
+          locale?: string
+          marketplace?: string
+          normalized_json?: Json
+          overall_score?: number | null
+          owner?: string
+          price_amount?: number | null
+          product_description?: string | null
+          product_title?: string | null
+          project_id?: string | null
+          rating?: number | null
+          readability_score?: number | null
+          recommendations_json?: Json
+          result_json?: Json
+          review_count?: number | null
+          score_json?: Json
+          seo_score?: number | null
+          status?: Database["public"]["Enums"]["audit_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          brand_name: string | null
+          created_at: string
+          default_language: string
+          id: string
+          marketplace: string
+          name: string
+          owner: string
+          primary_category: string | null
+          product_type: string | null
+          target_customer: string | null
+          updated_at: string
+        }
+        Insert: {
+          brand_name?: string | null
+          created_at?: string
+          default_language?: string
+          id?: string
+          marketplace?: string
+          name: string
+          owner: string
+          primary_category?: string | null
+          product_type?: string | null
+          target_customer?: string | null
+          updated_at?: string
+        }
+        Update: {
+          brand_name?: string | null
+          created_at?: string
+          default_language?: string
+          id?: string
+          marketplace?: string
+          name?: string
+          owner?: string
+          primary_category?: string | null
+          product_type?: string | null
+          target_customer?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       todo_list: {
         Row: {
           created_at: string
@@ -72,6 +330,57 @@ export type Database = {
         }
         Relationships: []
       }
+      usage_limits: {
+        Row: {
+          ai_credits_monthly: number
+          ai_used: number
+          audit_credits_monthly: number
+          audits_used: number
+          competitor_credits_monthly: number
+          competitors_used: number
+          created_at: string
+          period_end: string
+          period_start: string
+          plan: Database["public"]["Enums"]["plan_code"]
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_credits_monthly?: number
+          ai_used?: number
+          audit_credits_monthly?: number
+          audits_used?: number
+          competitor_credits_monthly?: number
+          competitors_used?: number
+          created_at?: string
+          period_end?: string
+          period_start?: string
+          plan?: Database["public"]["Enums"]["plan_code"]
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_credits_monthly?: number
+          ai_used?: number
+          audit_credits_monthly?: number
+          audits_used?: number
+          competitor_credits_monthly?: number
+          competitors_used?: number
+          created_at?: string
+          period_end?: string
+          period_start?: string
+          plan?: Database["public"]["Enums"]["plan_code"]
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -80,7 +389,15 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      audit_status: "draft" | "queued" | "processing" | "completed" | "failed"
+      generation_kind:
+        | "audit_summary"
+        | "title_rewrite"
+        | "bullets_rewrite"
+        | "description_rewrite"
+        | "backend_keywords"
+        | "competitor_summary"
+      plan_code: "free" | "starter" | "pro" | "agency"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -210,6 +527,17 @@ export const Constants = {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      audit_status: ["draft", "queued", "processing", "completed", "failed"],
+      generation_kind: [
+        "audit_summary",
+        "title_rewrite",
+        "bullets_rewrite",
+        "description_rewrite",
+        "backend_keywords",
+        "competitor_summary",
+      ],
+      plan_code: ["free", "starter", "pro", "agency"],
+    },
   },
 } as const
