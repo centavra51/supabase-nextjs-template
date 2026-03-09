@@ -1,96 +1,89 @@
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import Link from "next/link";
+import { ArrowLeft, SearchCheck, Sparkles, WandSparkles } from "lucide-react";
 
 export default function AuthLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
+  children,
+}: {
+  children: React.ReactNode;
 }) {
-    const productName = process.env.NEXT_PUBLIC_PRODUCTNAME;
-    const testimonials = [
-        {
-            quote: "This template helped us launch our SaaS product in just two weeks. The authentication and multi-tenancy features are rock solid.",
-            author: "Sarah Chen",
-            role: "CTO, TechStart",
-            avatar: "SC"
-        },
-        {
-            quote: "The best part is how well thought out the organization management is. It saved us months of development time.",
-            author: "Michael Roberts",
-            role: "Founder, DataFlow",
-            avatar: "MR"
-        },
-        {
-            quote: "Clean code, great documentation, and excellent support. Exactly what we needed to get our MVP off the ground.",
-            author: "Jessica Kim",
-            role: "Lead Developer, CloudScale",
-            avatar: "JK"
-        }
-    ];
+  const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || "AuditFlow";
 
-    return (
-        <div className="flex min-h-screen">
-            <div className="w-full lg:w-1/2 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white relative">
-                <Link
-                    href="/"
-                    className="absolute left-8 top-8 flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Homepage
-                </Link>
+  const workflow = [
+    {
+      icon: SearchCheck,
+      title: "Audit the listing",
+      text: "See SEO, conversion, compliance, and readability issues in one report.",
+    },
+    {
+      icon: Sparkles,
+      title: "Compare competitors",
+      text: "Spot keyword gaps, messaging differences, and missed positioning angles.",
+    },
+    {
+      icon: WandSparkles,
+      title: "Generate rewrite",
+      text: "Turn the audit into stronger title and bullet options without leaving the workflow.",
+    },
+  ];
 
-                <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
-                        {productName}
-                    </h2>
-                </div>
+  return (
+    <div className="flex min-h-screen bg-[linear-gradient(180deg,#fffaf0_0%,#f8fafc_100%)]">
+      <div className="relative flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:px-8">
+        <Link
+          href="/auth/login"
+          className="absolute left-8 top-8 flex items-center text-sm text-slate-600 transition-colors hover:text-slate-950"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to sign in
+        </Link>
 
-                <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    {children}
-                </div>
-            </div>
-
-            <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-800">
-                <div className="w-full flex items-center justify-center p-12">
-                    <div className="space-y-6 max-w-lg">
-                        <h3 className="text-white text-2xl font-bold mb-8">
-                            Trusted by developers worldwide
-                        </h3>
-                        {testimonials.map((testimonial, index) => (
-                            <div
-                                key={index}
-                                className="relative bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 shadow-xl"
-                            >
-                                <div className="flex items-start space-x-4">
-                                    <div className="flex-shrink-0">
-                                        <div className="w-10 h-10 rounded-full bg-primary-400/30 flex items-center justify-center text-white font-semibold">
-                                            {testimonial.avatar}
-                                        </div>
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm text-white/90 mb-2 font-light leading-relaxed">
-                                            &#34;{testimonial.quote}&#34;
-                                        </p>
-                                        <div className="mt-3">
-                                            <p className="text-sm font-medium text-white">
-                                                {testimonial.author}
-                                            </p>
-                                            <p className="text-sm text-primary-200">
-                                                {testimonial.role}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                        <div className="mt-8 text-center">
-                            <p className="text-primary-100 text-sm">
-                                Join thousands of developers building with {productName}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="text-center">
+            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-700">Amazon listing workflow</div>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950">{productName}</h2>
+            <p className="mt-4 text-sm leading-6 text-slate-600">
+              Sign in to open the audit workspace directly. No template dashboard, no generic SaaS landing, just the
+              product flow.
+            </p>
+          </div>
         </div>
-    );
+
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">{children}</div>
+      </div>
+
+      <div className="hidden lg:flex lg:w-1/2 bg-[radial-gradient(circle_at_top_right,#fde68a,transparent_25%),linear-gradient(135deg,#0f172a_0%,#1e293b_58%,#334155_100%)]">
+        <div className="flex w-full items-center justify-center p-12">
+          <div className="max-w-lg space-y-6">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300">What happens after login</div>
+              <h3 className="mt-4 text-3xl font-semibold tracking-tight text-white">
+                Enter the product immediately, not a template homepage.
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-slate-200">
+                The app now opens into the audit workflow. Start with a listing draft, review the weak spots, then move
+                directly into competitor context and AI rewrite.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {workflow.map((item, index) => (
+                <div key={item.title} className="rounded-[24px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="rounded-2xl bg-amber-300/20 p-3 text-amber-300">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-[0.2em] text-slate-400">Step 0{index + 1}</div>
+                      <div className="mt-1 text-lg font-semibold text-white">{item.title}</div>
+                      <div className="mt-2 text-sm leading-6 text-slate-200">{item.text}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
