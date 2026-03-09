@@ -33,7 +33,11 @@ export default function RegisterPage() {
 
         try {
             const supabase = await createSPASassClient();
-            const { error } = await supabase.registerEmail(email, password);
+            const { error } = await supabase.registerEmail(
+                email,
+                password,
+                `${window.location.origin}/api/auth/callback`
+            );
 
             if (error) throw error;
 

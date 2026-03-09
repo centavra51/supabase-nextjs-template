@@ -24,10 +24,13 @@ export class SassClient {
         });
     }
 
-    async registerEmail(email: string, password: string) {
+    async registerEmail(email: string, password: string, emailRedirectTo?: string) {
         return this.client.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: emailRedirectTo ? {
+                emailRedirectTo,
+            } : undefined,
         });
     }
 
@@ -35,10 +38,13 @@ export class SassClient {
         return this.client.auth.exchangeCodeForSession(code);
     }
 
-    async resendVerificationEmail(email: string) {
+    async resendVerificationEmail(email: string, emailRedirectTo?: string) {
         return this.client.auth.resend({
             email: email,
-            type: 'signup'
+            type: 'signup',
+            options: emailRedirectTo ? {
+                emailRedirectTo,
+            } : undefined,
         })
     }
 

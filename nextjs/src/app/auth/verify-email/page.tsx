@@ -21,7 +21,10 @@ export default function VerifyEmailPage() {
             setLoading(true);
             setError('');
             const supabase = await createSPASassClient();
-            const {error} = await supabase.resendVerificationEmail(email);
+            const {error} = await supabase.resendVerificationEmail(
+                email,
+                `${window.location.origin}/api/auth/callback`
+            );
             if(error) {
                 setError(error.message);
                 return;
