@@ -98,6 +98,9 @@ type UsageSnapshot = {
   aiCreditsMonthly: number;
   aiUsed: number;
   aiRemaining: number;
+  competitorCreditsMonthly: number;
+  competitorsUsed: number;
+  competitorsRemaining: number;
   periodStart: string;
   periodEnd: string;
 };
@@ -170,9 +173,12 @@ export default function AuditDetailPage() {
           method: "GET",
           cache: "no-store",
         });
-        const data = (await response.json()) as { competitors?: CompetitorItem[] };
+        const data = (await response.json()) as { competitors?: CompetitorItem[]; usage?: UsageSnapshot };
         if (response.ok) {
           setCompetitors((data.competitors || []).map((item) => normalizeCompetitor(item)));
+          if (data.usage) {
+            setUsage(data.usage);
+          }
         }
       } catch (loadError) {
         console.error(loadError);
@@ -223,17 +229,24 @@ export default function AuditDetailPage() {
 
       const data = (await response.json()) as {
         competitor?: CompetitorItem;
+        usage?: UsageSnapshot;
         error?: string;
         details?: string;
       };
 
       if (!response.ok) {
+        if (data.usage) {
+          setUsage(data.usage);
+        }
         throw new Error(data.details || data.error || "Failed to save competitor.");
       }
 
       if (data.competitor) {
         const normalizedCompetitor = normalizeCompetitor(data.competitor as CompetitorItem);
         setCompetitors((prev) => [normalizedCompetitor, ...prev]);
+      }
+      if (data.usage) {
+        setUsage(data.usage);
       }
       setCompetitorForm(initialCompetitorForm);
     } catch (submitError) {
@@ -342,7 +355,7 @@ export default function AuditDetailPage() {
       </div>
 
       {usage && (
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader>
               <CardDescription>Plan</CardDescription>
@@ -362,6 +375,14 @@ export default function AuditDetailPage() {
               <CardDescription>AI Credits Left</CardDescription>
               <CardTitle>
                 {usage.aiRemaining} / {usage.aiCreditsMonthly}
+              </CardTitle>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardDescription>Competitor Credits Left</CardDescription>
+              <CardTitle>
+                {usage.competitorsRemaining} / {usage.competitorCreditsMonthly}
               </CardTitle>
             </CardHeader>
           </Card>

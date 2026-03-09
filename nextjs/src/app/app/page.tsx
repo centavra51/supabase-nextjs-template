@@ -21,6 +21,8 @@ type UsageSnapshot = {
     auditsRemaining: number;
     aiCreditsMonthly: number;
     aiRemaining: number;
+    competitorCreditsMonthly: number;
+    competitorsRemaining: number;
 };
 
 export default function DashboardContent() {
@@ -151,7 +153,7 @@ export default function DashboardContent() {
                         <CardDescription>Current plan and remaining monthly credits</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid gap-4 md:grid-cols-3">
+                        <div className="grid gap-4 md:grid-cols-4">
                             <div className="rounded-lg border p-4">
                                 <div className="text-sm text-gray-500">Plan</div>
                                 <div className="mt-2 text-2xl font-semibold capitalize">{usage.plan}</div>
@@ -166,6 +168,12 @@ export default function DashboardContent() {
                                 <div className="text-sm text-gray-500">AI Credits</div>
                                 <div className="mt-2 text-2xl font-semibold">
                                     {usage.aiRemaining} / {usage.aiCreditsMonthly}
+                                </div>
+                            </div>
+                            <div className="rounded-lg border p-4">
+                                <div className="text-sm text-gray-500">Competitor Credits</div>
+                                <div className="mt-2 text-2xl font-semibold">
+                                    {usage.competitorsRemaining} / {usage.competitorCreditsMonthly}
                                 </div>
                             </div>
                         </div>

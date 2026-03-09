@@ -164,6 +164,31 @@ export async function consumeAiCredit(client: SupabaseClient, userId: string) {
   };
 }
 
+export async function consumeCompetitorCredit(client: SupabaseClient, userId: string) {
+  const row = await ensureUsageRow(client, userId);
+  if (row.competitors_used >= row.competitor_credits_monthly) {
+    return {
+      ok: false as const,
+      usage: toSnapshot(row),
+      message: "Monthly competitor analysis limit reached for your current plan.",
+    };
+  }
+
+  const nextUsed = row.competitors_used + 1;
+  const { error } = await client.from("usage_limits").update({ competitors_used: nextUsed }).eq("user_id", userId);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return {
+    ok: true as const,
+    usage: toSnapshot({
+      ...row,
+      competitors_used: nextUsed,
+    }),
+  };
+}
+
 export async function canUseAudit(client: SupabaseClient, userId: string) {
   const usage = await getUsageSnapshot(client, userId);
   return {
@@ -179,5 +204,15 @@ export async function canUseAi(client: SupabaseClient, userId: string) {
     ok: usage.aiRemaining > 0,
     usage,
     message: usage.aiRemaining > 0 ? null : "Monthly AI rewrite limit reached for your current plan.",
+  };
+}
+
+export async function canUseCompetitor(client: SupabaseClient, userId: string) {
+  const usage = await getUsageSnapshot(client, userId);
+  return {
+    ok: usage.competitorsRemaining > 0,
+    usage,
+    message:
+      usage.competitorsRemaining > 0 ? null : "Monthly competitor analysis limit reached for your current plan.",
   };
 }

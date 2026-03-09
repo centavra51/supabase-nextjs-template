@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { compareCompetitor } from "@/lib/audit/competitor";
 import { createSSRSassClient } from "@/lib/supabase/server";
 import type { Database, TablesInsert } from "@/lib/types";
+import { canUseCompetitor, consumeCompetitorCredit, getUsageSnapshot } from "@/lib/usage/limits";
 
 type RouteContext = {
   params: Promise<{
@@ -125,7 +126,9 @@ export async function GET(_request: Request, context: RouteContext) {
     );
   }
 
-  return NextResponse.json({ competitors: data });
+  const usage = await getUsageSnapshot(client, user.id);
+
+  return NextResponse.json({ competitors: data, usage });
 }
 
 export async function POST(request: Request, context: RouteContext) {
@@ -140,6 +143,17 @@ export async function POST(request: Request, context: RouteContext) {
 
   if (userError || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const quotaCheck = await canUseCompetitor(client, user.id);
+  if (!quotaCheck.ok) {
+    return NextResponse.json(
+      {
+        error: quotaCheck.message,
+        usage: quotaCheck.usage,
+      },
+      { status: 403 },
+    );
   }
 
   let audit: Database["public"]["Tables"]["listing_audits"]["Row"];
@@ -225,5 +239,7 @@ export async function POST(request: Request, context: RouteContext) {
     );
   }
 
-  return NextResponse.json({ competitor: data });
+  const creditResult = await consumeCompetitorCredit(client, user.id);
+
+  return NextResponse.json({ competitor: data, usage: creditResult.usage });
 }
