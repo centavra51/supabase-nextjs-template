@@ -104,7 +104,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <Link
         key={item.name}
         href={item.href}
-        className={`group rounded-2xl border px-3 py-3 transition-all ${
+        className={`group block w-full rounded-2xl border px-3 py-3 transition-all ${
           isActive
             ? "border-slate-900 bg-slate-900 text-white shadow-lg shadow-slate-900/10"
             : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
